@@ -1,21 +1,33 @@
 
-import React, { useEffect, useState } from "react";
-import { getMovies } from "../../state/apiCalls";
+import React, { useEffect, useRef, useState } from "react";
+import { getMovies, searchMovies} from "../../state/apiCalls";
 import "./Row.css";
 import Information from "../information/Information";
 
-const Row = ({ title, fetchUrl, isLarge }) => {
+const Row = ({ title, fetchUrl, isLarge, toSearch }) => {
+  const infRef = useRef(null)
   const imgUrl = "https://image.tmdb.org/t/p/w500/";
   const [movies, setMovies] = useState([]);
   const [currentMovie, setCurrentMovie] = useState("");
 
-  useEffect(() => {
-    getMovies(fetchUrl).then((allMovies) => setMovies(allMovies.data.results));
-  }, [fetchUrl]);
-
+  
+    useEffect(() => {
+      if(toSearch){
+        searchMovies(toSearch).then((allMovies) => setMovies(allMovies.data.results));
+      }
+      if(fetchUrl){
+        getMovies(fetchUrl).then((allMovies) => setMovies(allMovies.data.results));
+      }
+    
+    }, [toSearch,fetchUrl]);
+  
+ 
   const handleClick = (movie) => {
     if (currentMovie) setCurrentMovie("");
-    else setCurrentMovie(movie);
+    else {
+      setCurrentMovie(movie)
+      currentMovie && infRef.current.scrollIntoView({ behavior: 'smooth' })
+      }
   };
   return (
     <div className="row">
@@ -35,7 +47,7 @@ const Row = ({ title, fetchUrl, isLarge }) => {
           ))}
       </div>
       <div style={{display:currentMovie? 'block':'none'}}>
-        <Information currentMovie={currentMovie} />
+        <Information ref={infRef}  currentMovie={currentMovie} />
       </div>
     </div>
   );

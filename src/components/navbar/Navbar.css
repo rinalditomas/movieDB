@@ -1,4 +1,4 @@
-.navbar{
+ .navbar{
     position:fixed;
     top:0;
     display: flex;
@@ -14,20 +14,47 @@
     transition: all 0.5s;
     
 }
+.logo{
+    width: 8rem;
+}
+.logo:hover{
+    cursor: pointer;
+}
 .navbar_black{
     background-color:#111 ;
 }
 .logo{
-    position: fixed;
     left: 20px;
+} 
+.search_container{
+    margin-right: 4rem;
 }
 .search_bar{
-    position: fixed;
-    right: 20px;
     border: none;
     height: 2rem;
     width: 15rem;
-    border-radius: 5px;
+    border-radius: 0px;
+     
+}
+.search{
+    position: fixed;
+    border: none;
+    height: 2.1rem;
+    background-color: white;
+}
+#glass{
+    color: black;
+    transition: transform 450ms;
+}
+
+#glass:hover{
+    transform: scale(1.5);
+}
+
+.search:hover{
+    color: white;
+    font-weight: bold;
+
 }
 
 @media screen and (max-width: 768px) {
@@ -37,4 +64,13 @@
    .logo{
        font-size: 1.5rem;
    }
+   .search_bar{
+    height: 1.5rem;
+    width: 10rem;
+  }
+  .search{
+ 
+    height: 1.85rem;
+
+}
   }

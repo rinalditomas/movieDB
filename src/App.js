@@ -1,21 +1,20 @@
-import Row from "./components/row/Row";
-import Banner from "./components/banner/Banner";
-import request from "./constants/request";
-import Navbar from "./components/navbar/Navbar";
-import "./App.css";
+import React from "react";
+import {BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Navbar from "./components/navbar/Navbar"
+import Search from './components/search/Search'
+import Main from "./container/Main";
 
 function App() {
   return (
-    <div className="App">
-      <Navbar />
-      <Banner fetchUrl={request.netflix} />
-      <Row title="Trending" fetchUrl={request.trending} isLarge />
-      <Row title="Upcoming" fetchUrl={request.upcoming} />
-      <Row title="Popular Movie" fetchUrl={request.popularMovie} />
-      <Row title="Popular Tv Show" fetchUrl={request.popularTv} />
-      <Row title="Romance" fetchUrl={request.romance} />
-      <Row title="Action" fetchUrl={request.action} />
-    </div>
+   <Router>
+     <Navbar/>
+     <Switch>
+       <div className="App">
+         <Route path='/' exact component={Main}/>
+         <Route path='/search/:movie' render={({match})=><Search match={match.params}/>}/>
+       </div>
+     </Switch>
+   </Router>
   );
 }
 

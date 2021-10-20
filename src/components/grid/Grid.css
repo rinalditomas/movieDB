@@ -1,0 +1,31 @@
+.grid{
+    background-color: #111;
+    
+}
+.movie_grid{
+    display:grid;
+    grid-template-columns: repeat(4,1fr);
+    grid-template-rows: repeat(5,1fr);
+    grid-gap: 1.5rem;
+    margin-top: 7rem;
+    margin-bottom: 5rem;
+
+}
+.movie_poster_grid{
+    width: 100%;
+    object-fit: contain;
+    max-height: 250px;
+    transition: transform 450ms;
+}
+.movie_poster_grid:hover{
+    cursor: pointer;
+    transform: scale(1.08);
+}
+
+@media screen and (max-width: 768px) {
+    .movie_grid{
+
+        grid-template-columns: repeat(2,1fr);
+        grid-column-gap: 0px;
+    }
+  }

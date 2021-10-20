@@ -12,6 +12,7 @@ const Information = (currentMovie) => {
     release_date,
     backdrop_path,
     first_air_date,
+    original_language
   } = currentMovie.currentMovie;
   return (
     <div
@@ -34,7 +35,9 @@ const Information = (currentMovie) => {
           >
             {vote_average}
           </p>
+          <ion-icon className="star" name="star"></ion-icon>
           <p className="release">{release_date || first_air_date}</p>
+          <p className="language">{original_language?.toUpperCase()}</p>
         </div>
         <div className="overview_container">
           <h2>Overview</h2>
