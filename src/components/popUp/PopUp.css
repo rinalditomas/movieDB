@@ -35,7 +35,7 @@
 .extra_info {
   display: flex;
   flex-direction: row;
-  justify-content:center;
+  justify-content: center;
   align-items: center;
   margin-top: -0.5rem;
   font-size: small;
@@ -48,38 +48,36 @@
 ion-icon {
   color: gold;
 }
-.date{
-    margin-right: 0.7rem;
-    margin-left: 0.7rem;
+.date {
+  margin-right: 0.7rem;
+  margin-left: 0.7rem;
 }
-.text_overview{
-    width: 23rem;
-    font-size: 0.8rem;
-    
+.text_overview {
+  width: 23rem;
+  font-size: 0.8rem;
 }
-.title{
-    font-size: 1.5rem;
-}
-
-#close_btn{
-   
-    color: black;
-    transition: transform 450ms;
-    margin-left: 25rem;
-    font-size: 30px;
-}
-#close_btn:hover{
-    cursor: pointer;
-    transform: scale(1.1);
+.title {
+  font-size: 1.5rem;
 }
 
+#close_btn {
+  color: black;
+  transition: transform 450ms;
+  margin-left: 25rem;
+  font-size: 30px;
+}
+#close_btn:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
 
 @media screen and (max-width: 768px) {
   .container {
     width: 90%;
     height: 75%;
     display: flex;
-   flex-direction: column;
+    flex-direction: column;
+    align-items: center;
   }
   .popup_image {
     max-height: 300px;
@@ -88,18 +86,36 @@ ion-icon {
     background-color: white;
     margin: 1rem;
   }
-  .text_overview{
-    width: 20rem;
+  .overview {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .text_overview {
     font-size: 0.8rem;
-    
-}
-.title{
-  font-size: 1rem;
-}
-.overview h3{
-  font-size: 1rem;
-}
-.popup_content{
-  margin-top: -3rem;
-}
+    text-align: center;
+    width: 90%;
+  }
+  .title {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  .overview h3 {
+    font-size: 1rem;
+  }
+  .popup_content {
+    margin-top: -3rem;
+  }
+  #close_btn {
+    margin-top: 10px;
+    margin-left: 17rem;
+  }
+  .top {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 }

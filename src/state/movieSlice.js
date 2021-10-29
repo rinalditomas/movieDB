@@ -1,8 +1,37 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
+import request from "../constants/request";
+import { API_KEY } from "../constants/request";
+
+export const fetchMovies = createAsyncThunk("GET_MOVIES", async (fetchURL) => {
+  let allMovies = {
+    popularTv: [],
+    romance: [],
+    trending: [],
+    upcoming: [],
+    popularMovie: [],
+    netflix: [],
+    action: [],
+  };
+
+  for (let [key, value] of Object.entries(request)) {
+    const movies = await axios.get(`https://api.themoviedb.org/3${value}`);
+    allMovies[key] = movies.data.results;
+  }
+
+  return allMovies;
+});
+export const searchMovies = createAsyncThunk("SEARCH_MOVIES", async (movie) => {
+  const movies = await axios.get(
+    `https://api.themoviedb.org/3/search/multi?api_key=${API_KEY}&language=en-US&query=${movie}&page=1&include_adult=false`
+  );
+  return movies.data.results;
+});
 
 const initialState = {
-  movies: [],
-  pending: false,
+  allMovies: [],
+  search: [],
+  selectedMovie: {},
   error: false,
 };
 
@@ -10,30 +39,25 @@ const movieSlice = createSlice({
   name: "movies",
   initialState,
   reducers: {
-    pendingStatus: (state) => {
-      state.pending = true;
+    selectMovie: (state, { payload }) => {
+      return { ...state, selectedMovie: payload };
     },
-    errorStatus: (state) => {
-      state.pending = false;
-      state.error = true;
+  },
+  extraReducers: {
+    [fetchMovies.fulfilled]: (state, { payload }) => {
+      return { ...state, allMovies: payload };
     },
-    getTrendingMovies: (state, action) => {
-      console.log(action.payload);
-      state.pending = false;
-      state.allTodos.push(action.payload);
+    [fetchMovies.rejected]: (state, action) => {
+      return { ...state, error: true };
     },
-    getPopularMovies: (state, action) => {
-      console.log(action.payload);
-      state.pending = false;
-      state.allTodos.push(action.payload);
+    [searchMovies.fulfilled]: (state, { payload }) => {
+      return { ...state, search: payload };
+    },
+    [searchMovies.rejected]: (state, action) => {
+      return { ...state, error: true };
     },
   },
 });
+export const { selectMovie } = movieSlice.actions;
 
-export const {
-  getTrendingMovies,
-  errorStatus,
-  pendingStatus,
-  getPopularMovies,
-} = movieSlice.actions;
 export default movieSlice.reducer;

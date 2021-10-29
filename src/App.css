@@ -1,7 +1,12 @@
-*{
+* {
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue",
+    Helvetica, Arial, "Lucida Grande", sans-serif;
   margin: 0;
 }
-.App{
+.App {
   background-color: #111;
-  
+}
+.search_movies {
+  display: flex;
+  justify-content: center;
 }

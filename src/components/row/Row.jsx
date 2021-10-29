@@ -1,34 +1,9 @@
-
-import React, { useEffect, useRef, useState } from "react";
-import { getMovies, searchMovies} from "../../state/apiCalls";
+import React from "react";
 import "./Row.css";
 import Information from "../information/Information";
+import { imgUrl } from "../../constants/request";
 
-const Row = ({ title, fetchUrl, isLarge, toSearch }) => {
-  const infRef = useRef(null)
-  const imgUrl = "https://image.tmdb.org/t/p/w500/";
-  const [movies, setMovies] = useState([]);
-  const [currentMovie, setCurrentMovie] = useState("");
-
-  
-    useEffect(() => {
-      if(toSearch){
-        searchMovies(toSearch).then((allMovies) => setMovies(allMovies.data.results));
-      }
-      if(fetchUrl){
-        getMovies(fetchUrl).then((allMovies) => setMovies(allMovies.data.results));
-      }
-    
-    }, [toSearch,fetchUrl]);
-  
- 
-  const handleClick = (movie) => {
-    if (currentMovie) setCurrentMovie("");
-    else {
-      setCurrentMovie(movie)
-      currentMovie && infRef.current.scrollIntoView({ behavior: 'smooth' })
-      }
-  };
+const Row = ({ title, movies, isLarge, handleClick, currentMovie }) => {
   return (
     <div className="row">
       <h1>{title}</h1>
@@ -39,15 +14,15 @@ const Row = ({ title, fetchUrl, isLarge, toSearch }) => {
               key={movie.id}
               className={`movie_poster ${isLarge && "movie_posterLarge"}`}
               src={`${imgUrl}${
-                isLarge ? movie.poster_path : movie.backdrop_path
+                isLarge ? movie?.poster_path : movie?.backdrop_path
               }`}
-              alt={movie.name}
+              alt={movie?.name}
               onClick={() => handleClick(movie)}
             />
           ))}
       </div>
-      <div style={{display:currentMovie? 'block':'none'}}>
-        <Information ref={infRef}  currentMovie={currentMovie} />
+      <div style={{ display: currentMovie ? "block" : "none" }}>
+        <Information currentMovie={currentMovie} />
       </div>
     </div>
   );
